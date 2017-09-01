@@ -4,9 +4,11 @@ package us.luckau.test.automation;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+//import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import io.github.bonigarcia.wdm.ChromeDriverManager;
+//import io.github.bonigarcia.wdm.ChromeDriverManager;
+import io.github.bonigarcia.wdm.FirefoxDriverManager;
 
 /**
  *
@@ -19,20 +21,27 @@ public class Automation {
 	static WebDriverWait wait;
 
 
-	static final long WAIT_TIMEOUT = 20;
+	static final long WAIT_TIMEOUT = 30;
 	public static WebDriver getDriver()
 	{
 		if (driver == null)
 		{
-			ChromeDriverManager.getInstance().setup();
-			driver = new ChromeDriver();
-			driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-			wait = new WebDriverWait(driver, 30);
+			FirefoxDriverManager.getInstance().setup();
+			driver = new FirefoxDriver();
+			
+			//ChromeDriverManager.getInstance().setup();
+			//driver = new ChromeDriver();
+			driver.manage().timeouts().implicitlyWait(WAIT_TIMEOUT, TimeUnit.SECONDS);
+			wait = new WebDriverWait(driver, WAIT_TIMEOUT);
 		}
 
 		return driver;
 	}
-
+	
+	public static void setDriver(WebDriver driver) {
+		Automation.driver = driver;
+	}
+	
 	/**
 	 *
 	 * @return the instance of WebDriverWait
@@ -44,9 +53,11 @@ public class Automation {
 
 	/**
 	 *
+	 * Snooze should not be used if possible. It is mainly used temporarily
+	 *  while finding out if a needed wait is the cause of an issue.
+	 *
 	 * @param n
 	 *            The number of seconds to snooze
-	 *
 	 */
 	public static void snooze(int n)
 	{
@@ -69,11 +80,7 @@ public class Automation {
 
 	public static void quit()
 	{
-		getDriver().quit();
+		driver.quit();
+		driver = null;
 	}
-
-	public static void setDriver(WebDriver driver) {
-		Automation.driver = driver;
-	}
-
 }
