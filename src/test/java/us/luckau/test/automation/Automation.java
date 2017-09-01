@@ -3,7 +3,9 @@ package us.luckau.test.automation;
 
 import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 //import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -21,7 +23,7 @@ public class Automation {
 	static WebDriverWait wait;
 
 
-	static final long WAIT_TIMEOUT = 30;
+	static final long WAIT_TIMEOUT = 15;
 	public static WebDriver getDriver()
 	{
 		if (driver == null)
@@ -83,4 +85,14 @@ public class Automation {
 		driver.quit();
 		driver = null;
 	}
+	
+	public static boolean verifyStandardFieldLength(By by,String string)
+	{
+		WebElement element = driver.findElement(by);
+		element.sendKeys(string);
+		String s2 = element.getText();
+		return s2.length() < 256;
+		
+	}
+	
 }
