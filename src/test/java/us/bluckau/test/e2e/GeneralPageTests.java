@@ -59,7 +59,7 @@ public class GeneralPageTests
 	
 	//TODO: provide a comprehensive list of the elemnets that need their contrast checked or provide a crawler.
 	@Test()
-	public void verifyContrast()
+	public void verifyContrast1()
 	{
 		logger.info("testColorContrast");
 		SubmitPage.pageLoad();
@@ -67,4 +67,13 @@ public class GeneralPageTests
 		assertTrue(Automation.verifyColorContrast(By.cssSelector("header h2")));
 	}
 	
+	@Test()
+	public void verifyContrast2()
+	{
+		
+		logger.info("testColorContrast");
+		SubmitPage.pageLoad();
+		//Automation.getDriver().get("https://jivecommunications.wufoo.com/forms/m7x4z5/");
+		assertTrue(Automation.verifyColorContrast(By.cssSelector(".get-quote-header.inline_header_parts")));
+	}
 }

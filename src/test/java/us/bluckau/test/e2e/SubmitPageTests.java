@@ -79,14 +79,14 @@ public class SubmitPageTests
 	
 	
 	@Test
-	public static void testCanadianName()
+	public static void testForeignName()
 	{
 		submitPage.pageLoad();
 		
 		//workaround, probably only works in Firefox
 		Automation.getDriver().get("https://jivecommunications.wufoo.com/forms/m7x4z5/");
 		
-		submitPage.enterName("Maève");
+		submitPage.enterName("Maève Hyphen-Name O'Connor");
 		submitPage.enterEmail("tjones@example.com");
 		submitPage.enterCompany("tjones, inc.");
 		submitPage.enterPhone("801","789","3358");
