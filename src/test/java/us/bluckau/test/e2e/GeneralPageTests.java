@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.By;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -13,7 +14,7 @@ import us.luckau.test.automation.Automation;
 import us.luckau.test.automation.SubmitPage;
 
 
-public class PageTests
+public class GeneralPageTests
 {
 	private static SubmitPage SubmitPage;
 
@@ -55,5 +56,15 @@ public class PageTests
 		assertTrue(Automation.getDriver().getCurrentUrl().startsWith("https:"));
 	}
 	
+	
+	//TODO: provide a comprehensive list of the elemnets that need their contrast checked or provide a crawler.
+	@Test()
+	public void verifyContrast()
+	{
+		logger.info("testColorContrast");
+		SubmitPage.pageLoad();
+		Automation.getDriver().get("https://jivecommunications.wufoo.com/forms/m7x4z5/");
+		assertTrue(Automation.verifyColorContrast(By.cssSelector("header h2")));
+	}
 	
 }

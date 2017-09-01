@@ -19,7 +19,9 @@ public class VerifyPage
 	private static final By previousButton = By.id("previousPageButton");
 	private static final By summaryField = By.id("Field28");
 	private static final By messageField = By.id("Field1");
-	
+	private static final By messageFieldArea = By.id("fo2li28");
+	private static final By summaryTitle = By.id("Title28");
+	private static final By messageTitle = By.id("Title1");
 	
 		
 
@@ -53,10 +55,12 @@ public class VerifyPage
 	public boolean verifyStandardFieldLengths(String string)
 	{
 		
-		return Automation.verifyStandardFieldLength(summaryField, string) &&
+		return Automation.verifyStandardFieldLength(summaryField, string) && 
 				Automation.verifyStandardFieldLength(messageField, string);
 
 	}
+	
+	
 	
 
 }

@@ -1,5 +1,7 @@
 package us.luckau.test.automation;
 
+import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
@@ -40,7 +42,7 @@ public class SubmitPage
 		wait = Automation.getWait();
 	}
 
-	public void pageLoad()
+	public static void pageLoad()
 	{
 		driver.get(DEFAULT_URL);
 	}
@@ -50,22 +52,22 @@ public class SubmitPage
 		driver.get(HTTP_URL);
 	}
 
-	public void enterName(String string) {
+	public static void enterName(String string) {
 		driver.findElement(nameField).sendKeys(string);
 		
 	}
 
-	public void enterEmail(String string) {
+	public static void enterEmail(String string) {
 		driver.findElement(emailField).sendKeys(string);
 		
 	}
 
-	public void enterCompany(String string) {
+	public static void enterCompany(String string) {
 
 		driver.findElement(companyField).sendKeys(string);
 	}
 
-	public void enterPhone(String string1, String string2, String string3) {
+	public static void enterPhone(String string1, String string2, String string3) {
 		
 		driver.findElement(phone1).sendKeys(string1);
 		driver.findElement(phone2).sendKeys(string2);
@@ -73,15 +75,20 @@ public class SubmitPage
 		
 	}
 	
-	public void clickNext()
+	public static void clickNext()
 	{
 		driver.findElement(nextButton).click();
 	}
 	
 	public boolean isPhoneError()
 	{
-		return driver.findElements(phoneError).size()>0;
-		//return driver.findElement(phoneError).isDisplayed();
+		List<WebElement> elems = driver.findElements(phoneError);
+		
+		return elems.size() > 0;
+		
+		//return elems.size() > 0 && Automation.verifyColorContrast(phoneError);
+		//TODO: seperate out the test for contrast from the other error checks,
+		//or make it flow more gracefully with better reporting of what went wrong in any instance.
 	}
 	
 	public boolean isEmailError()
@@ -138,11 +145,22 @@ public class SubmitPage
 	
 	public boolean verifyStandardFieldLengths(String string)
 	{
+
 		return Automation.verifyStandardFieldLength(nameField, string) &&
 				Automation.verifyStandardFieldLength(emailField, string)&&
 				Automation.verifyStandardFieldLength(companyField, string);
-
 	}
 	
+	public static void goToVerify()
+	{
+		SubmitPage.pageLoad();
+		driver.get("https://jivecommunications.wufoo.com/forms/m7x4z5/");
+		enterName("Tom Jones");
+		enterEmail("tjones@example.com");
+		enterCompany("tjones, inc.");
+		enterPhone("801","789","3358");
+		clickNext();
+		
+	}
 
 }
